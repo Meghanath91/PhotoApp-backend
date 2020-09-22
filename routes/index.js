@@ -88,16 +88,6 @@ router.post(
   }
 );
 
-// router.get("/users", (req, res) => {
-//   User.find(function (err, users) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.json(users);
-//     }
-//   });
-// });
-
 /**
  * @method - POST
  * @description - Login
