@@ -1,26 +1,12 @@
 //importing dependencies
 const express = require("express");
 const router = express.Router();
-const { check, validationResult } = require("express-validator/check");
+const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-// const apicache = require("apicache");
-// const cache = apicache.middleware;
-const mongoose = require("mongoose");
 const User = require("../db/model/user.model");
 const auth = require("../middleware/auth");
-const password = "q6kXIvlvEXQsQzrw";
-const mongoURL = `mongodb+srv://photo_app:${password}@clusterphotoapp.bv3sp.mongodb.net/<dbname>?retryWrites=true&w=majority`;
-mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connection.on("connected", () => {
-  console.log("connected to mongodb");
-});
-mongoose.connection.on("Error", (err) => {
-  console.log("error", err);
-});
-require("../db/model/user.model");
-
-// route to handle "api/ping"
+require("dotenv").config();
 
 //router to test
 router.get("/ping", (req, res) => {
@@ -102,28 +88,21 @@ router.post(
   }
 );
 
-//client object
-// router.post("/register", (req, res) => {
-//   console.log("req.body", req.body);
-//   let user = new User(req.body);
-//   user
-//     .save()
-//     .then((user) => {
-//       res.status(200).json({ user: "new user added successfully" });
-//     })
-//     .catch((err) => {
-//       res.status(400).send("adding use failed");
-//     });
+// router.get("/users", (req, res) => {
+//   User.find(function (err, users) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.json(users);
+//     }
+//   });
 // });
-router.get("/users", (req, res) => {
-  User.find(function (err, users) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(users);
-    }
-  });
-});
+
+/**
+ * @method - POST
+ * @description - Login
+ * @param - /login
+ */
 router.post(
   "/login",
   [
